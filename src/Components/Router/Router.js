@@ -6,8 +6,6 @@ import NotFound from "../NotFound/NotFound";
 
 const Router = () => {
 
-    console.log('Router');
-
     return (
         <Routes>
             <Route path="/" element={<HomeComponent/>} />

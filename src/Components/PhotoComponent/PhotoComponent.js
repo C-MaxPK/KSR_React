@@ -18,8 +18,6 @@ const PhotoComponent = () => {
             document.title = 'KSR - Page Not Found';
         }
     }, [year, isInclude]);
-    
-    console.log('PhotoComponent' + year);
 
     return (
         <>

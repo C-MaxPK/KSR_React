@@ -18,8 +18,6 @@ const VideoComponent = () => {
             document.title = 'KSR - Page Not Found';
         }
     }, [year, isInclude]);
-    
-    console.log('VideoComponent' + year);
 
     return (
         <>
