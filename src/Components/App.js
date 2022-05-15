@@ -4,8 +4,6 @@ import './App.scss';
 
 function App() {
 
-  console.log('App');
-
   return (
     <div className="container">
       <div className="wrapper">

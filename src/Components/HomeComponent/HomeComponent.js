@@ -8,8 +8,6 @@ const HomeComponent = () => {
         document.title = 'Kursk Street Runners';
     }, []);
 
-    console.log('HomeComponent');
-
     return (
         <>
             <div className="wrapper__top">

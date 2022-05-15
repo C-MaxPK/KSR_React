@@ -1,3 +1,5 @@
+import { ADD_PHOTO_THEME_LIST, ADD_PHOTO_URL_LIST, ADD_VIDEO_LIST } from "./types/types";
+
 const initialState = {
     arrYears: ['2007-08', '2009', '2010', '2011', '2012', '2013', '2014', '2015', '2016', '2017'],
     photoAlbumList: [
@@ -28,11 +30,11 @@ const initialState = {
 
 const reducer = (state = initialState, { type, payload }) => {
     switch (type) {
-        case 'ADD_PHOTO_THEME_LIST':
+        case ADD_PHOTO_THEME_LIST:
             return {...state, themeList: payload};
-        case 'ADD_PHOTO_URL_LIST':
+        case ADD_PHOTO_URL_LIST:
             return {...state, imagesUrl: payload};
-        case 'ADD_VIDEO_LIST':
+        case ADD_VIDEO_LIST:
             return {...state, videoList: payload};
         default:
             return state;

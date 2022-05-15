@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import Lightbox from 'lightbox-react';
 import VideoIFrameComponent from '../VideoIFrameComponent/VideoIFrameComponent';
-import { addVideoList } from '../../store/actions/videoListAction';
+import { getVideoList } from '../../store/actions/videoAction';
 import 'lightbox-react/style.css';
 
 const VideoContentComponent = ({ year }) => {
@@ -15,13 +15,8 @@ const VideoContentComponent = ({ year }) => {
     });
 
     useEffect(() => {
-        fetch(`./json/videoList${year}.json`)
-            .then(response => response.json())
-            .then(data => dispatch(addVideoList(data)))
-            .catch(error => console.log(error));
+        dispatch(getVideoList(year));
     }, [year, dispatch]);
-
-    console.log('VideoContentComponent');
 
     return <>
             {videoList?.map((item, idx) => (

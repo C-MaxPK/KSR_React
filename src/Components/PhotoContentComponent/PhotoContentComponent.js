@@ -3,8 +3,7 @@ import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import $ from "jquery";
 import Lightbox from 'lightbox-react';
-import { addPhotoUrlList } from '../../store/actions/photoUrlAction';
-import { addPhotoThemeList } from '../../store/actions/photoThemeListAction';
+import { getPhotoData } from '../../store/actions/photoAction';
 import 'lightbox-react/style.css';
 
 const spoiler = (idx) => {
@@ -39,20 +38,9 @@ const PhotoContentComponent = ({ year }) => {
     });
 
     useEffect(() => {
-        fetch(`./json/photoThemeList${year}.json`)
-            .then(response => response.json())
-            .then(data => dispatch(addPhotoThemeList(data)))
-            .catch(error => console.log(error));
-
-        fetch(`./json/photoUrl${year}.json`)
-            .then(response => response.json())
-            .then(data => dispatch(addPhotoUrlList(data)))
-            .catch(error => console.log(error));
-
+        dispatch(getPhotoData(year));
         $('.spoilerBody').toggle(false);
     }, [year, dispatch]);
-
-    console.log('PhotoContentComponent');
 
     return <>
             {themeList?.map((theme, idx) => (

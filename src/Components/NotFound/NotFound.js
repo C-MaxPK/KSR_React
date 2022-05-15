@@ -7,8 +7,6 @@ const NotFound = () => {
         document.title = 'KSR - Page Not Found';
     }, []);
     
-    console.log('NotFound');
-    
     return(
         <div>
             <div>
