@@ -6,7 +6,7 @@ const VideoIFrameComponent = ({ url }) => {
 
                     <iframe 
                         width="100%"
-                        height="100%"
+                        height="90%"
                         src={ url } 
                         title="YouTube video player" 
                         frameBorder="0" 
