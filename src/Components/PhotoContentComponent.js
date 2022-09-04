@@ -17,7 +17,7 @@ const getMarkupPhotos = (countPhotos, idx, year, setInitLightbox) => {
     for (let i = 0; i < countPhotos; i++) {
         contentPhoto.push(
             <img 
-                src={`./KSR_React/photo/${year}/small/${idx + 1}/${i + 1}.jpg`}
+                src={`./photo/${year}/small/${idx + 1}/${i + 1}.jpg`}
                 alt="preview"
                 onClick={() => setInitLightbox({photoIndex: i, photoThemeIndex: idx, isOpen: true})}
                 key={i}

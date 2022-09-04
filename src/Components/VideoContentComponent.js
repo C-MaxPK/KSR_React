@@ -27,7 +27,7 @@ const VideoContentComponent = ({ year }) => {
             {galleryList?.map((item, idx) => (
                 <li className="videoContent__item" key={item.title}>
                     <Link to="" onClick={() => setInitLightbox({videoIndex: idx, isOpen: true})}>
-                        <img className="videoContent__img" src={`./KSR_React/video/${year}/${idx + 1}.jpg`} alt="preview" />
+                        <img className="videoContent__img" src={`./video/${year}/${idx + 1}.jpg`} alt="preview" />
                         <p className="videoContent__title">{item.title}</p>
                     </Link>
                 </li>

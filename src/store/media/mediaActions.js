@@ -25,7 +25,7 @@ export const getMediaData = (year, type) => dispatch => {
     dispatch(setLoading());
 
     setTimeout(() => {
-        fetch(`./KSR_React/json/${type}GalleryList${year}.json`)
+        fetch(`./json/${type}GalleryList${year}.json`)
             .then(response => response.json())
             .then(data => dispatch(addGalleryList(data)))
             .catch(error => {
