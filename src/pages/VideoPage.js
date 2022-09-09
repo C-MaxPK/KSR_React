@@ -4,11 +4,10 @@ import { useSelector } from 'react-redux';
 import VideoContentComponent from "../Components/VideoContentComponent";
 import FooterComponent from "../Components/FooterComponent";
 import NotFound from "./NotFound";
-import { selectVideoAlbumList, selectError, selectStatus } from '../store/media/mediaSelectors';
+import { selectVideoAlbumList, selectError, selectStatus } from '../store/media/mediaSlice';
 import ninjaImg from '../assets/ninjaKSR.png';
 
 const VideoPage = ({ arrYears }) => {
-    console.log('VideoPage')
     const { year } = useParams();
     const videoAlbumList = useSelector(selectVideoAlbumList);
     const status = useSelector(selectStatus);

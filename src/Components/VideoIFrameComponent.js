@@ -1,5 +1,4 @@
 const VideoIFrameComponent = ({ url }) => {
-    console.log('VideoIFrameComponent')
 
     return (
         <div className="iframe">

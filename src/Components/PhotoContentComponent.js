@@ -4,8 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import $ from "jquery";
 import Lightbox from 'lightbox-react';
 import 'lightbox-react/style.css';
-import { clearData, getMediaData } from '../store/media/mediaActions';
-import { selectGalleryList } from '../store/media/mediaSelectors';
+import { clearData, getMediaData, selectGalleryList } from '../store/media/mediaSlice';
 
 const spoiler = (idx) => {
     $(`.spoilerLinks${idx}`).parent().children('.spoilerBody').toggle('normal');
@@ -29,7 +28,6 @@ const getMarkupPhotos = (countPhotos, idx, year, setInitLightbox) => {
 };
 
 const PhotoContentComponent = ({ year }) => {
-    console.log('PhotoContentComponent')
     const dispatch = useDispatch();
     const galleryList = useSelector(selectGalleryList);
     const [initLightbox, setInitLightbox] = useState({
@@ -39,7 +37,7 @@ const PhotoContentComponent = ({ year }) => {
     });
 
     useEffect(() => {
-        dispatch(getMediaData(year, 'photo'));
+        dispatch(getMediaData({year, type: 'photo'}));
         $('.spoilerBody').toggle(false);
         
         return () => {
