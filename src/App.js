@@ -1,9 +1,8 @@
 import Router from "./Router/Router";
 import './fonts/fonts.css';
-import './App.scss';
+import './styles/App.scss';
 
 function App() {
-  console.log('App')
 
   return (
     <div className="container">

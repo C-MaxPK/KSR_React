@@ -1,7 +1,6 @@
 import { memo } from "react";
 
 const FooterComponent = () => {
-    console.log('FooterComponent')
     const currentYear = new Date().getFullYear();
 
     return (

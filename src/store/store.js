@@ -1,9 +1,8 @@
-import { applyMiddleware, createStore } from 'redux';
-import { composeWithDevTools } from 'redux-devtools-extension';
-import thunk from 'redux-thunk';
-import mediaReducer from './media/mediaReducer';
+import { configureStore } from '@reduxjs/toolkit';
+import mediaReducer from './media/mediaSlice';
 
-// composeWithDevTools - devTools for Redux in Chrome
-const store = createStore(mediaReducer, composeWithDevTools(applyMiddleware(thunk)));
+const store = configureStore({
+	reducer: mediaReducer
+});
 
 export default store;

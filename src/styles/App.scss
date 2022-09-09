@@ -94,7 +94,7 @@ body {
 .navMain {
     flex-grow: 1;
     /* путь указывается относительно этого файла стилей */
-    background-image: url('../public/img/indexLogo.png');
+    background-image: url('../../public/img/indexLogo.png');
     background-position: center;
     background-repeat: no-repeat;
     background-size: contain;
@@ -266,6 +266,7 @@ body {
             font-size: 30px;
             color: $color-secondary;
             position: absolute;
+            top: -1px;
             display: flex;
             flex-direction: column;
             justify-content: center;

@@ -4,11 +4,10 @@ import { useSelector } from "react-redux";
 import PhotoContentComponent from "../Components/PhotoContentComponent";
 import FooterComponent from "../Components/FooterComponent";
 import NotFound from "./NotFound";
-import { selectPhotoAlbumList, selectError, selectStatus } from '../store/media/mediaSelectors';
+import { selectPhotoAlbumList, selectError, selectStatus } from '../store/media/mediaSlice';
 import ninjaImg from '../assets/ninjaKSR.png';
 
 const PhotoPage = ({ arrYears }) => {
-    console.log('PhotoPage')
     const { year } = useParams();
     const albumList = useSelector(selectPhotoAlbumList);
     const status = useSelector(selectStatus);

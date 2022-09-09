@@ -4,11 +4,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import Lightbox from 'lightbox-react';
 import 'lightbox-react/style.css';
 import VideoIFrameComponent from './VideoIFrameComponent';
-import { clearData, getMediaData } from '../store/media/mediaActions';
-import { selectGalleryList } from '../store/media/mediaSelectors';
+import { clearData, getMediaData, selectGalleryList } from '../store/media/mediaSlice';
 
 const VideoContentComponent = ({ year }) => {
-    console.log('VideoContentComponent')
     const dispatch = useDispatch();
     const galleryList = useSelector(selectGalleryList);
     const [initLightbox, setInitLightbox] = useState({
@@ -17,7 +15,7 @@ const VideoContentComponent = ({ year }) => {
     });
 
     useEffect(() => {
-        dispatch(getMediaData(year, 'video'));
+        dispatch(getMediaData({year, type: 'video'}));
         return () => {
             dispatch(clearData());
         }
