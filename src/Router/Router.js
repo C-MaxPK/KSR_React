@@ -10,8 +10,8 @@ const Router = () => {
     return (
         <Routes>
             <Route path="/" element={<HomePage/>} />
-            <Route path="/photo:year" element={<PhotoPage arrYears={arrYears}/>} />
-            <Route path="/video:year" element={<VideoPage arrYears={arrYears}/>} />
+            <Route path="photo:year" element={<PhotoPage arrYears={arrYears}/>} />
+            <Route path="video:year" element={<VideoPage arrYears={arrYears}/>} />
             <Route path="*" element={<NotFound/>} />
         </Routes>
     );

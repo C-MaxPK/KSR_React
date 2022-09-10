@@ -17,8 +17,8 @@ const HomePage = () => {
         
                 <nav className="navMain">
                     <ul className="navMain__list">
-                        <li><Link to="/photo2017">Фото</Link></li>
-                        <li><Link to="/video2017">Видео</Link></li>
+                        <li><Link to="photo2017">Фото</Link></li>
+                        <li><Link to="video2017">Видео</Link></li>
                     </ul>
                 </nav>
             </div>
