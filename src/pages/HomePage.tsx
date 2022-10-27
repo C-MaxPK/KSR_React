@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import FooterComponent from "../Components/FooterComponent";
 
-const HomePage = () => {
+const HomePage = (): JSX.Element => {
 
     useEffect(() => {
         document.title = 'Kursk Street Runners';

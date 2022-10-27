@@ -1,17 +1,27 @@
-import { memo, useEffect, useState } from 'react';
+import { Dispatch, memo, SetStateAction, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
 import $ from "jquery";
 import Lightbox from 'lightbox-react';
 import 'lightbox-react/style.css';
-import { clearData, getMediaData, selectGalleryList } from '../store/media/mediaSlice';
+import { clearData, getMediaData, IGalleryItem, selectGalleryList } from '../store/media/mediaSlice';
+import { useAppDispatch, useAppSelector } from '../store/hooks';
 
-const spoiler = (idx) => {
-    $(`.spoilerLinks${idx}`).parent().children('.spoilerBody').toggle('normal');
+interface IPhotoContentComponentProps {
+    year: string;
+}
+
+interface IInitLightbox {
+    photoIndex: number;
+    photoThemeIndex: number;
+    isOpen: boolean;
+}
+
+const spoiler = (idx: number): void => {
+    $(`.spoilerLinks${idx}`).parent().children('.spoilerBody').toggle(400);
 };
 
-const getMarkupPhotos = (countPhotos, idx, year, setInitLightbox) => {
-    let contentPhoto = [];
+const getMarkupPhotos = (countPhotos: number, idx: number, year: string, setInitLightbox: Dispatch<SetStateAction<IInitLightbox>>): JSX.Element[]  => {
+    const contentPhoto: JSX.Element[] = [];
 
     for (let i = 0; i < countPhotos; i++) {
         contentPhoto.push(
@@ -23,14 +33,14 @@ const getMarkupPhotos = (countPhotos, idx, year, setInitLightbox) => {
             />
         );
     }
-
+    
     return contentPhoto;
 };
 
-const PhotoContentComponent = ({ year }) => {
-    const dispatch = useDispatch();
-    const galleryList = useSelector(selectGalleryList);
-    const [initLightbox, setInitLightbox] = useState({
+const PhotoContentComponent = ({ year }: IPhotoContentComponentProps): JSX.Element => {
+    const dispatch = useAppDispatch();
+    const galleryList = useAppSelector(selectGalleryList);
+    const [initLightbox, setInitLightbox] = useState<IInitLightbox>({
         photoIndex: 0,
         photoThemeIndex: 0,
         isOpen: false,
@@ -42,11 +52,11 @@ const PhotoContentComponent = ({ year }) => {
         
         return () => {
             dispatch(clearData());
-        }
+        };
     }, [year, dispatch]);
 
     return <>
-            {galleryList?.map((theme, idx) => (
+            {galleryList?.map((theme: IGalleryItem, idx: number) => (
                 <li className="photoContent__item" key={theme.title}>
                     <Link to="" className={`spoilerLinks${idx}`} onClick={() => spoiler(idx)}>
                         {theme.title}
@@ -77,7 +87,7 @@ const PhotoContentComponent = ({ year }) => {
                     }
                 />
             )}
-        </>
+        </>;
 };
 
 export default memo(PhotoContentComponent);

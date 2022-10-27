@@ -1,18 +1,22 @@
 import { useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
-import { useSelector } from "react-redux";
 import PhotoContentComponent from "../Components/PhotoContentComponent";
 import FooterComponent from "../Components/FooterComponent";
 import NotFound from "./NotFound";
-import { selectPhotoAlbumList, selectError, selectStatus } from '../store/media/mediaSlice';
-import ninjaImg from '../assets/ninjaKSR.png';
+import { IPhotoAlbumItem, selectError, selectPhotoAlbumList, selectStatus } from '../store/media/mediaSlice';
+import { useAppSelector } from '../store/hooks';
 
-const PhotoPage = ({ arrYears }) => {
+interface IPhotoPageProps {
+    arrYears: string[];
+}
+
+const PhotoPage = ({ arrYears }: IPhotoPageProps): JSX.Element => {
     const { year } = useParams();
-    const albumList = useSelector(selectPhotoAlbumList);
-    const status = useSelector(selectStatus);
-    const error = useSelector(selectError);
-    const isInclude = arrYears.includes(year);
+    const albumList = useAppSelector(selectPhotoAlbumList);
+    const status = useAppSelector(selectStatus);
+    const error = useAppSelector(selectError);
+
+    const isInclude: boolean = arrYears.includes(typeof year === 'string' ? year : '404');
     
     useEffect(() => {
         if (isInclude) {
@@ -30,7 +34,7 @@ const PhotoPage = ({ arrYears }) => {
                         <header className="header">
                             <div className="header__logo">
                                 <Link to="/">
-                                    <img className="header__logoImg" src={ninjaImg} alt="logo"/>
+                                    <img className="header__logoImg" src='./img/ninjaKSR.png' alt="logo"/>
                                 </Link>
                             </div>
                             <div className="header__nav">
@@ -38,7 +42,7 @@ const PhotoPage = ({ arrYears }) => {
                                 <nav className="nav">
                                     <ul className="nav__list">
 
-                                        {albumList.map(album => (
+                                        {albumList.map((album: IPhotoAlbumItem) => (
                                             year === album.id ?
                                                 <li className="nav__item" key={album.id}>
                                                     <img className="nav__itemImg nav__itemImg-opacity" src={album.img} alt={album.id} />
@@ -60,7 +64,7 @@ const PhotoPage = ({ arrYears }) => {
                             {status === 'loading' && <div className='photoContent__loading'>Загрузка...</div>}
                             {status === 'rejected' && <div><span className='photoContent__error'>Ошибка получения данных:</span> {error}</div>}
                             <ul className="photoContent__list">
-                                <PhotoContentComponent year={year}/>
+                                {typeof year === 'string' && <PhotoContentComponent year={year}/>}
                             </ul>
                         </section>
                     </div>

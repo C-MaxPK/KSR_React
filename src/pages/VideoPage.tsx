@@ -1,18 +1,22 @@
 import { useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
-import { useSelector } from 'react-redux';
 import VideoContentComponent from "../Components/VideoContentComponent";
 import FooterComponent from "../Components/FooterComponent";
 import NotFound from "./NotFound";
-import { selectVideoAlbumList, selectError, selectStatus } from '../store/media/mediaSlice';
-import ninjaImg from '../assets/ninjaKSR.png';
+import { selectError, selectVideoAlbumList, selectStatus, IVideoAlbumItem } from '../store/media/mediaSlice';
+import { useAppSelector } from '../store/hooks';
 
-const VideoPage = ({ arrYears }) => {
+interface IVideoPageProps {
+    arrYears: string[];
+}
+
+const VideoPage = ({ arrYears }: IVideoPageProps): JSX.Element => {
     const { year } = useParams();
-    const videoAlbumList = useSelector(selectVideoAlbumList);
-    const status = useSelector(selectStatus);
-    const error = useSelector(selectError);
-    const isInclude = arrYears.includes(year);
+    const videoAlbumList = useAppSelector(selectVideoAlbumList);
+    const status = useAppSelector(selectStatus);
+    const error = useAppSelector(selectError);
+
+    const isInclude = arrYears.includes(typeof year === 'string' ? year : '404');
 
     useEffect(() => {
         if (isInclude) {
@@ -30,7 +34,7 @@ const VideoPage = ({ arrYears }) => {
                         <header className="header headerVideo">
                             <div className="header__logo">
                                 <Link to="/">
-                                    <img className="header__logoImg" src={ninjaImg} alt="logo"/>
+                                    <img className="header__logoImg" src='./img/ninjaKSR.png' alt="logo"/>
                                 </Link>
                             </div>
                             <div className="header__nav">
@@ -38,7 +42,7 @@ const VideoPage = ({ arrYears }) => {
                                 <nav className="nav">
                                     <ul className="nav__list">
                                         
-                                        {videoAlbumList.map(album => (
+                                        {videoAlbumList.map((album: IVideoAlbumItem) => (
                                             year === album.id ?
                                                 <li className="nav__item" key={album.id}>
                                                     <img className="nav__itemImg nav__itemImg-opacity" src={album.img} alt={album.id} />
@@ -61,7 +65,7 @@ const VideoPage = ({ arrYears }) => {
                             {status === 'loading' && <div className="videoContent__loading">Загрузка...</div>}
                             {status === 'rejected' && <div><span className="videoContent__error">Ошибка получения данных:</span> {error}</div>}
                             <ul className="videoContent__list">
-                                <VideoContentComponent year={year}/>
+                                {typeof year === 'string' && <VideoContentComponent year={year}/>}
                             </ul>
                         </section>
                     </div>

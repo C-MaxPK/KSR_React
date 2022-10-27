@@ -1,7 +1,7 @@
 import { memo } from "react";
 
-const FooterComponent = () => {
-    const currentYear = new Date().getFullYear();
+const FooterComponent = (): JSX.Element => {
+    const currentYear: number = new Date().getFullYear();
 
     return (
         <footer className="footer">

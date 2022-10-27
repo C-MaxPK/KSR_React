@@ -1,8 +1,7 @@
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
-import ninjaImg from '../assets/ninjaKSR.png';
 
-const NotFound = () => {
+const NotFound = (): JSX.Element => {
 
     useEffect(() => {
         document.title = 'KSR - Page Not Found';
@@ -14,7 +13,7 @@ const NotFound = () => {
                 Страница не найдена
             </div>
 
-            <img className="pageNotFound-img" src={ninjaImg} alt="logo"/>
+            <img className="pageNotFound-img" src='./img/ninjaKSR.png' alt="logo"/>
 
             <Link to="/" className='pageNotFound-link'>
                 Вернуться на главную

@@ -4,8 +4,8 @@ import PhotoPage from "../pages/PhotoPage";
 import VideoPage from "../pages/VideoPage";
 import NotFound from "../pages/NotFound";
 
-const Router = () => {
-    const arrYears = ['2007-08', '2009', '2010', '2011', '2012', '2013', '2014', '2015', '2016', '2017'];
+const Router = (): JSX.Element => {
+    const arrYears: string[] = ['2007-08', '2009', '2010', '2011', '2012', '2013', '2014', '2015', '2016', '2017'];
 
     return (
         <Routes>

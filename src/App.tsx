@@ -2,7 +2,7 @@ import Router from "./Router/Router";
 import './fonts/fonts.css';
 import './styles/App.scss';
 
-function App() {
+function App(): JSX.Element {
 
   return (
     <div className="container">

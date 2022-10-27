@@ -1,15 +1,24 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
 import Lightbox from 'lightbox-react';
 import 'lightbox-react/style.css';
 import VideoIFrameComponent from './VideoIFrameComponent';
-import { clearData, getMediaData, selectGalleryList } from '../store/media/mediaSlice';
+import { clearData, getMediaData, IGalleryItem, selectGalleryList } from '../store/media/mediaSlice';
+import { useAppDispatch, useAppSelector } from '../store/hooks';
 
-const VideoContentComponent = ({ year }) => {
-    const dispatch = useDispatch();
-    const galleryList = useSelector(selectGalleryList);
-    const [initLightbox, setInitLightbox] = useState({
+interface IVideoContentComponentProps {
+    year: string;
+}
+
+interface IInitLightbox {
+    videoIndex: number;
+    isOpen: boolean;
+}
+
+const VideoContentComponent = ({ year }: IVideoContentComponentProps): JSX.Element => {
+    const dispatch = useAppDispatch();
+    const galleryList = useAppSelector(selectGalleryList);
+    const [initLightbox, setInitLightbox] = useState<IInitLightbox>({
         videoIndex: 0,
         isOpen: false,
     });
@@ -18,11 +27,11 @@ const VideoContentComponent = ({ year }) => {
         dispatch(getMediaData({year, type: 'video'}));
         return () => {
             dispatch(clearData());
-        }
+        };
     }, [year, dispatch]);
 
     return <>            
-            {galleryList?.map((item, idx) => (
+            {galleryList?.map((item: IGalleryItem, idx: number) => (
                 <li className="videoContent__item" key={item.title}>
                     <Link to="" onClick={() => setInitLightbox({videoIndex: idx, isOpen: true})}>
                         <img className="videoContent__img" src={`./video/${year}/${idx + 1}.jpg`} alt="preview" />
@@ -52,7 +61,7 @@ const VideoContentComponent = ({ year }) => {
                     enableZoom={false}
                 />
             )}
-        </>
+        </>;
 };
 
 export default VideoContentComponent;
