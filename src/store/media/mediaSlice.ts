@@ -1,6 +1,35 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { RootState } from '../store';
 
-const initialState = {
+export interface IPhotoAlbumItem {
+    id: string;
+    url: string;
+    img: string;
+}
+
+export interface IVideoAlbumItem extends IPhotoAlbumItem {
+    title: string;
+}
+
+export interface IGalleryItem {
+    title: string;
+    url: string; // | string[]
+}
+
+interface IMediaState {
+    status: string;
+    error: null | string;
+    photoAlbumList: IPhotoAlbumItem[];
+    videoAlbumList: IVideoAlbumItem[];
+    galleryList: [] | IGalleryItem[];
+}
+
+interface IGetMediaDataProps {
+    year: string;
+    type: string;
+}
+
+const initialState: IMediaState = {
     status: 'idle',
     error: null,
     photoAlbumList: [
@@ -32,9 +61,9 @@ const initialState = {
 
 export const getMediaData = createAsyncThunk(
     '@@media/getMediaData',
-    async ({year, type}) => {
+    async ({year, type}: IGetMediaDataProps): Promise<IGalleryItem[]> => {
         const response = await fetch(`./json/${type}GalleryList${year}.json`);
-        const data = await response.json();
+        const data: IGalleryItem[] = await response.json();
         return data;
     }
 );
@@ -55,34 +84,36 @@ const mediaSlice = createSlice({
 		// 	state.error = null;
 		// 	state.galleryList = action.payload;
 		// },
-		clearData: () => {
-		    return initialState;
+		clearData: (): IMediaState => {
+            return initialState;
 		}
 	},
-    extraReducers: (builder) => {
+    extraReducers: (builder): void => {
         builder
             .addCase(getMediaData.pending, (state) => {
                 state.status = 'loading';
             })
-            .addCase(getMediaData.fulfilled, (state, {payload}) => {
+            .addCase(getMediaData.fulfilled, (state, action: PayloadAction<IGalleryItem[]>) => {
                 state.status = 'fulfilled';
                 state.error = null;
-                state.galleryList = payload;
+                state.galleryList = action.payload;
             })
             .addCase(getMediaData.rejected, (state, {error}) => {
                 state.status = 'rejected';
-                state.error = error.message;
+                if (typeof error.message === 'string') {
+                    state.error = error.message;
+                }
             });
     },
 });
 
 export const { clearData } = mediaSlice.actions;
 
-export const selectPhotoAlbumList = (state) => state.photoAlbumList;
-export const selectVideoAlbumList = (state) => state.videoAlbumList;
-export const selectGalleryList = (state) => state.galleryList;
-export const selectStatus = (state) => state.status;
-export const selectError = (state) => state.error;
+export const selectPhotoAlbumList = (state: RootState) => state.photoAlbumList;
+export const selectVideoAlbumList = (state: RootState) => state.videoAlbumList;
+export const selectGalleryList = (state: RootState) => state.galleryList;
+export const selectStatus = (state: RootState) => state.status;
+export const selectError = (state: RootState) => state.error;
 
 // export const getMediaData = ({year, type}) => (dispatch) => {
 //     dispatch(setLoading());
